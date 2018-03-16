@@ -1,0 +1,16 @@
+version 'unspecified'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'biz.paluch.redis:lettuce:4.4.0.Final'
+    testCompile 'org.testcontainers:testcontainers:1.6.0'
+    testCompile 'org.assertj:assertj-core:3.9.1'
+    testCompile 'junit:junit:4.12'
+}
