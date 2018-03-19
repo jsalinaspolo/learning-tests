@@ -2,3 +2,4 @@
 
 # Learning tests
 
+* [Redis](https://github.com/mustaine/learning-tests/tree/master/redis)
