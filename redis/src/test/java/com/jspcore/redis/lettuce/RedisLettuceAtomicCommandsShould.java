@@ -4,50 +4,51 @@ import org.awaitility.core.ConditionTimeoutException;
 import org.junit.Test;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.awaitility.Awaitility.await;
-import static org.awaitility.Duration.ONE_SECOND;
+import static org.awaitility.Duration.FIVE_HUNDRED_MILLISECONDS;
 
 public class RedisLettuceAtomicCommandsShould extends AbstractCommandTest {
 
-  CountDownLatch countDownLatch = new CountDownLatch(1);
+  private CountDownLatch countDownLatch = new CountDownLatch(1);
 
   @Test
-  public void have_race_condition_when_get_and_set_as_non_atomic_operation() {
+  public void have_race_condition_when_get_and_set_as_non_atomic_operation() throws InterruptedException {
     commands.set("foo", "1");
 
-    Thread thread1 = raceConditionOperation();
-    Thread thread2 = raceConditionOperation();
+    ExecutorService executorService = Executors.newFixedThreadPool(2);
+    executorService.submit(raceConditionOperation());
+    executorService.submit(raceConditionOperation());
 
-    thread1.start();
-    thread2.start();
-
+    executorService.awaitTermination(1, TimeUnit.SECONDS);
     countDownLatch.countDown();
 
     assertThatThrownBy(() ->
-      await().atMost(ONE_SECOND).untilAsserted(() -> assertThat(commands.get("foo")).isEqualTo("3"))
+      await().atMost(FIVE_HUNDRED_MILLISECONDS).untilAsserted(() -> assertThat(commands.get("foo")).isEqualTo("3"))
     ).isInstanceOf(ConditionTimeoutException.class);
   }
 
   @Test
-  public void increment_for_atomic_operation() {
+  public void increment_for_atomic_operation() throws InterruptedException {
     commands.set("foo", "1");
 
-    Thread thread1 = atomicOperation();
-    Thread thread2 = atomicOperation();
+    ExecutorService executorService = Executors.newFixedThreadPool(2);
+    executorService.submit(atomicOperation());
+    executorService.submit(atomicOperation());
 
-    thread1.start();
-    thread2.start();
-
+    executorService.awaitTermination(1, TimeUnit.SECONDS);
     countDownLatch.countDown();
 
-    await().atMost(ONE_SECOND).untilAsserted(() -> assertThat(commands.get("foo")).isEqualTo("3"));
+    await().atMost(FIVE_HUNDRED_MILLISECONDS).untilAsserted(() -> assertThat(commands.get("foo")).isEqualTo("3"));
   }
 
-  private Thread raceConditionOperation() {
-    return new Thread(() -> {
+  private Runnable raceConditionOperation() {
+    return () -> {
       try {
         String value = commands.get("foo");
         countDownLatch.await();
@@ -55,19 +56,17 @@ public class RedisLettuceAtomicCommandsShould extends AbstractCommandTest {
       } catch (InterruptedException e) {
         throw new IllegalStateException(e);
       }
-    });
+    };
   }
 
-  private Thread atomicOperation() {
-    return new Thread(() -> {
+  private Runnable atomicOperation() {
+    return () -> {
       try {
         countDownLatch.await();
         commands.incr("foo");
       } catch (InterruptedException e) {
         throw new IllegalStateException(e);
       }
-    });
+    };
   }
-
-
 }
