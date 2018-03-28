@@ -3,3 +3,4 @@
 # Learning tests
 
 * [Redis](https://github.com/mustaine/learning-tests/tree/master/redis)
+* [Ratpack](https://github.com/mustaine/learning-tests/tree/master/ratpack)
