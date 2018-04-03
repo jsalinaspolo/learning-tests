@@ -17,6 +17,17 @@ public class TimerShould {
   private final MeterRegistry registry = new SimpleMeterRegistry();
 
   @Test
+  public void record_count() {
+    Timer timer = Timer.builder(MY_TIMER)
+      .register(registry);
+
+    timer.record(() -> "something");
+    timer.record(() -> "something");
+
+    assertThat(registry.timer(MY_TIMER).count()).isEqualTo(2);
+  }
+
+  @Test
   public void record_time_elapsed() {
     Timer timer = Timer.builder(MY_TIMER)
       .register(registry);
