@@ -9,9 +9,7 @@ repositories {
 }
 
 dependencies {
-  compile 'io.ratpack:ratpack-core:1.5.4'
-
-  testCompile 'io.ratpack:ratpack-test:1.5.4'
-  testCompile 'org.assertj:assertj-core:3.9.1'
   testCompile 'junit:junit:4.12'
+  testCompile 'org.assertj:assertj-core:3.9.1'
+  testCompile 'io.micrometer:micrometer-core:1.0.2'
 }
