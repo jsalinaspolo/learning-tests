@@ -5,8 +5,6 @@ import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.junit.Test;
 
-import java.util.concurrent.TimeUnit;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CompositeMeterRegistryShould {
@@ -15,7 +13,7 @@ public class CompositeMeterRegistryShould {
   private final CompositeMeterRegistry registry = new CompositeMeterRegistry();
 
   @Test
-  public void increments_are_NOOP_untile_there_is_registry_in_composite() {
+  public void increments_are_NOOP_until_there_is_registry_in_composite() {
     Counter counter = Counter.builder(MY_COUNTER).register(registry);
     counter.increment();
 
@@ -23,7 +21,7 @@ public class CompositeMeterRegistryShould {
     registry.add(simpleRegistry);
     counter.increment();
 
-    assertThat(registry.counter(MY_COUNTER).count()).isEqualTo(2);
+    assertThat(registry.counter(MY_COUNTER).count()).isEqualTo(1);
     assertThat(simpleRegistry.counter(MY_COUNTER).count()).isEqualTo(1);
   }
 }

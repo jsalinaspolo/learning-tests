@@ -15,3 +15,8 @@ jacocoTestReport {
         html.enabled true
     }
 }
+
+wrapper {
+  gradleVersion = '4.6'
+  distributionType = Wrapper.DistributionType.BIN
+}

@@ -8,8 +8,53 @@ repositories {
   mavenCentral()
 }
 
+ext {
+  micrometerVersion = '1.0.2'
+}
 dependencies {
+  compile "io.micrometer:micrometer-core:$micrometerVersion"
+  compile "io.micrometer:micrometer-registry-prometheus:$micrometerVersion"
+
   testCompile 'junit:junit:4.12'
   testCompile 'org.assertj:assertj-core:3.9.1'
-  testCompile 'io.micrometer:micrometer-core:1.0.2'
+  testCompile "org.slf4j:slf4j-api:1.7.22"
+
 }
+
+configurations {
+  unitTestCompile.extendsFrom testCompile
+  integrationTestCompile.extendsFrom testCompile
+}
+
+sourceSets {
+  unitTest {
+    compileClasspath += main.output + test.output
+    runtimeClasspath += main.output + test.output
+    java.srcDir file('src/test/java')
+  }
+  integrationTest {
+    compileClasspath += main.output + test.output
+    runtimeClasspath += main.output + test.output
+    java.srcDir file('src/test-integration/java')
+    resources.srcDirs += file('src/test-integration/resources')
+  }
+}
+
+task unitTest(type: Test) {
+  testClassesDirs = sourceSets.unitTest.output.classesDirs
+  classpath = sourceSets.unitTest.runtimeClasspath
+  testLogging {
+    events "passed", "skipped", "failed"
+  }
+}
+
+task integrationTest(type: Test) {
+  testClassesDirs = sourceSets.integrationTest.output.classesDirs
+  classpath = sourceSets.integrationTest.runtimeClasspath
+  testLogging {
+    events "passed", "skipped", "failed"
+  }
+}
+
+//check.dependsOn integrationTest
+integrationTest.mustRunAfter test
