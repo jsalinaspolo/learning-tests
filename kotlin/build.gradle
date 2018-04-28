@@ -12,6 +12,7 @@ buildscript {
 version 'unspecified'
 
 apply plugin: 'kotlin'
+apply plugin: 'groovy'
 
 repositories {
   jcenter()
@@ -19,8 +20,9 @@ repositories {
 
 dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-
   testCompile 'junit:junit:4.12'
+  testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
+  testCompile 'org.mockito:mockito-inline:2.18.3'
 }
 
 compileKotlin {
