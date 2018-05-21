@@ -1,0 +1,5 @@
+---
+  sample:
+    field: "value"
+    anotherField: "value2"
+...
