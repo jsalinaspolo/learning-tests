@@ -1,11 +1,9 @@
 buildscript {
-  ext.kotlin_version = '1.2.40'
-
   repositories {
     mavenCentral()
   }
   dependencies {
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.50"
   }
 }
 
@@ -19,7 +17,7 @@ repositories {
 }
 
 dependencies {
-  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
   testCompile 'junit:junit:4.12'
   testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
   testCompile 'org.mockito:mockito-inline:2.18.3'
@@ -34,5 +32,5 @@ compileTestKotlin {
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = "4.6"
+  gradleVersion = "4.8"
 }

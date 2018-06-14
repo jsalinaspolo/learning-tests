@@ -1,6 +1,7 @@
-rootProject.name = 'learning-tests'
-include 'redis'
-include 'ratpack'
-include 'micrometer'
-include 'kotlin'
+include   \
+   'redis',
+  'ratpack',
+  'micrometer',
+  'kotlin'
 
+rootProject.name = 'learning-tests'
