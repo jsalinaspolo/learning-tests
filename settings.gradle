@@ -2,6 +2,7 @@ include   \
    'redis',
   'ratpack',
   'micrometer',
-  'kotlin'
+  'kotlin',
+  'jgiven-spock'
 
 rootProject.name = 'learning-tests'
