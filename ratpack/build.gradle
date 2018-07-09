@@ -42,7 +42,8 @@ dependencies {
   testCompile 'net.bytebuddy:byte-buddy:1.6.5'
   testCompile 'de.jodamob.kotlin:kotlin-runner-spock:0.3.1'
   testCompile "com.github.stefanbirkner:system-rules:1.17.2"
-
+  testCompile 'com.jspcore:logcapture:0.4.6'
+  testCompile 'org.hamcrest:java-hamcrest:2.0.0.0'
 }
 
 compileKotlin {
