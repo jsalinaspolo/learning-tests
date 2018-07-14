@@ -1,4 +1,4 @@
-package com.jspcore.spockme
+package com.jspcore.spockme.stages
 
 import com.tngtech.jgiven.Stage
 

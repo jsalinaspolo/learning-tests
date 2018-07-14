@@ -18,9 +18,12 @@ repositories {
 }
 
 dependencies {
-  testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
-  testCompile 'com.tngtech.jgiven:jgiven-junit:0.16.0'
+  compile 'com.tngtech.jgiven:jgiven-junit:0.16.0'
+  compile 'org.spockframework:spock-core:1.1-groovy-2.4'
   testCompile 'ch.qos.logback:logback-classic:1.2.3'
 }
 
-test.finalizedBy jgivenTestReport
+test {
+  systemProperty 'jgiven.report.text', 'false'
+  finalizedBy jgivenTestReport
+}
