@@ -4,7 +4,7 @@ import com.tngtech.jgiven.Stage
 
 class WhenSomeAction extends Stage<WhenSomeAction> {
 
-  WhenSomeAction "some action bro"() {
+  WhenSomeAction some_action_bro() {
     return self()
   }
 }
