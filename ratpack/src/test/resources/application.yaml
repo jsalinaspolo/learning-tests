@@ -2,4 +2,8 @@
   sample:
     field: "value"
     anotherField: "value2"
+
+    mapField:
+      item1: "value1"
+      item2: "value2"
 ...

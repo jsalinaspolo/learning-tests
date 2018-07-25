@@ -10,16 +10,17 @@ import static ratpack.jackson.Jackson.json
 class RatpackConfigShould extends Specification {
 
   @Rule
-  public final EnvironmentVariables environmentVariables = new EnvironmentVariables();
+  public final EnvironmentVariables environmentVariables = new EnvironmentVariables()
 
   static class Sample {
     public String field
     public String anotherField
+    public Map<String, String> mapField
   }
 
   def "parse configuration object"() {
     expect:
-    GroovyEmbeddedApp.of {
+    GroovyEmbeddedApp.ratpack {
       serverConfig {
         yaml Class.getResource("/application.yaml")
         require("/sample", Sample)
@@ -30,7 +31,7 @@ class RatpackConfigShould extends Specification {
         }
       }
     } test {
-      assert getText() == '{"field":"value","anotherField":"value2"}'
+      assert getText().contains('"field":"value","anotherField":"value2"')
     }
   }
 
@@ -38,7 +39,7 @@ class RatpackConfigShould extends Specification {
     expect:
     environmentVariables.set("SAMPLE__FIELD", "env-value1")
     environmentVariables.set("SAMPLE__ANOTHER_FIELD", "env-value2")
-    GroovyEmbeddedApp.of {
+    GroovyEmbeddedApp.ratpack {
       serverConfig {
         env("")
         require("/sample", Sample)
@@ -49,7 +50,7 @@ class RatpackConfigShould extends Specification {
         }
       }
     } test {
-      assert getText() == '{"field":"env-value1","anotherField":"env-value2"}'
+      assert getText().contains('"field":"env-value1","anotherField":"env-value2"')
     }
   }
 
@@ -57,7 +58,7 @@ class RatpackConfigShould extends Specification {
     expect:
     environmentVariables.set("SAMPLE__FIELD", "env-value1")
     environmentVariables.set("SAMPLE__ANOTHER_FIELD", "env-value2")
-    GroovyEmbeddedApp.of {
+    GroovyEmbeddedApp.ratpack {
       serverConfig {
         yaml Class.getResource("/application.yaml")
         env("")
@@ -69,14 +70,14 @@ class RatpackConfigShould extends Specification {
         }
       }
     } test {
-      assert getText() == '{"field":"env-value1","anotherField":"env-value2"}'
+      assert getText().contains('{"field":"env-value1","anotherField":"env-value2"')
     }
   }
 
   def "parse configuration object having env vars overwriting only one field"() {
     expect:
     environmentVariables.set("SAMPLE__ANOTHER_FIELD", "env-value2")
-    GroovyEmbeddedApp.of {
+    GroovyEmbeddedApp.ratpack {
       serverConfig {
         yaml Class.getResource("/application.yaml")
         env("")
@@ -88,7 +89,48 @@ class RatpackConfigShould extends Specification {
         }
       }
     } test {
-      assert getText() == '{"field":"value","anotherField":"env-value2"}'
+      assert getText().contains('{"field":"value","anotherField":"env-value2"')
     }
   }
+
+  def "parse configuration object with list"() {
+    expect:
+    GroovyEmbeddedApp.ratpack {
+      serverConfig {
+        yaml Class.getResource("/application.yaml")
+        env("")
+        require("/sample", Sample)
+      }
+      handlers {
+        get { Sample config ->
+          render json(config)
+        }
+      }
+    } test {
+      assert getText().contains('{"item1":"value1","item2":"value2"}')
+    }
+  }
+
+  def "parse configuration object with list and override with env variable"() {
+    expect:
+    environmentVariables.set("SAMPLE__MAP_FIELD__ITEM1", "anotherValue1")
+    environmentVariables.set("SAMPLE__MAP_FIELD__ITEM2", "anotherValue2")
+    environmentVariables.set("SAMPLE__MAP_FIELD__ITEM3", "anotherValue3")
+
+    GroovyEmbeddedApp.ratpack {
+      serverConfig {
+        yaml Class.getResource("/application.yaml")
+        env("")
+        require("/sample", Sample)
+      }
+      handlers {
+        get { Sample config ->
+          render json(config)
+        }
+      }
+    } test {
+      assert getText().contains('{"item1":"anotherValue1","item2":"anotherValue2","item3":"anotherValue3"}')
+    }
+  }
+
 }
