@@ -3,7 +3,7 @@ buildscript {
     mavenCentral()
   }
   dependencies {
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.50"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.51"
   }
 }
 
@@ -19,7 +19,7 @@ repositories {
 dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
   testCompile 'junit:junit:4.12'
-  testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
+  testCompile "org.spockframework:spock-core:1.2-groovy-2.5"
   testCompile 'org.mockito:mockito-inline:2.18.3'
   testCompile 'de.jodamob.kotlin:kotlin-runner-spock:0.3.1'
 }
