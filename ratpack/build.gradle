@@ -8,7 +8,7 @@ buildscript {
 }
 
 plugins {
-  id "org.jetbrains.kotlin.jvm" version "1.2.51"
+  id "org.jetbrains.kotlin.jvm" version "1.2.71"
 }
 
 apply plugin: "io.ratpack.ratpack-java"
@@ -34,8 +34,6 @@ dependencies {
   compile 'io.micrometer:micrometer-registry-prometheus:1.0.3'
   compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
-  testCompile 'io.ratpack:ratpack-test:1.5.4'
-  testCompile 'io.ratpack:ratpack-groovy-test:1.5.4'
   testCompile 'org.assertj:assertj-core:3.9.1'
   testCompile 'junit:junit:4.12'
   testCompile "org.spockframework:spock-core:1.2-groovy-2.5"
@@ -44,6 +42,7 @@ dependencies {
   testCompile "com.github.stefanbirkner:system-rules:1.17.2"
   testCompile 'com.jspcore:logcapture:0.4.6'
   testCompile 'org.hamcrest:java-hamcrest:2.0.0.0'
+  testCompile ratpack.dependency('groovy-test')
 }
 
 compileKotlin {
