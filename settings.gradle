@@ -1,8 +1,10 @@
-include   \
-   'redis',
+include 'redis',
   'ratpack',
   'micrometer',
   'kotlin',
-  'jgiven-spock'
+  'jgiven-spock',
+  'hystrix',
+  'hystrix:hystrix-wrapper',
+  'hystrix:hystrix-wrapper-ft',
 
 rootProject.name = 'learning-tests'

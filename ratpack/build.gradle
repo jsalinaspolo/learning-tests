@@ -8,7 +8,7 @@ buildscript {
 }
 
 plugins {
-  id "org.jetbrains.kotlin.jvm" version "1.2.41"
+  id "org.jetbrains.kotlin.jvm" version "1.2.51"
 }
 
 apply plugin: "io.ratpack.ratpack-java"
@@ -32,13 +32,13 @@ repositories {
 dependencies {
   compile ratpack.dependency("guice")
   compile 'io.micrometer:micrometer-registry-prometheus:1.0.3'
-  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.41"
+  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
   testCompile 'io.ratpack:ratpack-test:1.5.4'
   testCompile 'io.ratpack:ratpack-groovy-test:1.5.4'
   testCompile 'org.assertj:assertj-core:3.9.1'
   testCompile 'junit:junit:4.12'
-  testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
+  testCompile "org.spockframework:spock-core:1.2-groovy-2.5"
   testCompile 'net.bytebuddy:byte-buddy:1.6.5'
   testCompile 'de.jodamob.kotlin:kotlin-runner-spock:0.3.1'
   testCompile "com.github.stefanbirkner:system-rules:1.17.2"
