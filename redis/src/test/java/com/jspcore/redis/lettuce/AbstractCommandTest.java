@@ -14,7 +14,7 @@ import org.testcontainers.containers.GenericContainer;
 public abstract class AbstractCommandTest {
 
   @ClassRule
-  public static GenericContainer redis = new GenericContainer("redis:4.0.8")
+  public static GenericContainer redis = new GenericContainer("redis:4.0.11")
     .withExposedPorts(6379);
 
   protected static RedisClient client;

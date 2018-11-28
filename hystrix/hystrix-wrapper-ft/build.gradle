@@ -23,18 +23,12 @@ dependencies {
   compile 'info.cukes:cucumber-junit:1.1.8'
   compile 'info.cukes:cucumber-core:1.1.8'
   compile 'com.github.tomakehurst:crash-lab:0.2'
-//
+
   testCompile 'junit:junit:4.11'
-//
   testCompile 'org.mockito:mockito-all:1.9.5'
   testCompile 'org.assertj:assertj-core:3.6.1'
   testCompile 'org.assertj:assertj-guava:3.1.0'
   testCompile 'com.github.tomakehurst:wiremock:1.58'
 
-
-//  compile 'com.tngtech.jgiven:jgiven-junit:0.16.1'
-//  testCompile "org.spockframework:spock-core:1.2-groovy-2.5"
-//  testCompile 'ch.qos.logback:logback-classic:1.2.3'
-//  testCompile 'com.jspcore:logcapture:0.4.6'
 }
 
