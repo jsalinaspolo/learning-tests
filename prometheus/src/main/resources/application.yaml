@@ -1,0 +1,6 @@
+---
+server:
+  development: true
+
+metrics:
+  application: application-name

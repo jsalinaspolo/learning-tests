@@ -3,7 +3,8 @@ include 'redis',
   'micrometer',
   'kotlin',
   'hystrix',
-  'hystrix:hystrix-wrapper',
-  'hystrix:hystrix-wrapper-ft',
+//  'hystrix:hystrix-wrapper',
+//  'hystrix:hystrix-wrapper-ft',
+  'prometheus',
 
 rootProject.name = 'learning-tests'

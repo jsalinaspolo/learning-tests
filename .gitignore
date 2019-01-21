@@ -7,3 +7,5 @@ build/
 out/
 
 **/jgiven-reports
+
+**/docker/data
