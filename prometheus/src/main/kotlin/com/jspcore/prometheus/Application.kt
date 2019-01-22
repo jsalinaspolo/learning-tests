@@ -1,6 +1,7 @@
 package com.jspcore.prometheus
 
 import com.google.common.io.Resources
+import com.jspcore.prometheus.ratpack.Endpoints
 import com.jspcore.prometheus.ratpack.MetricsConfig
 import com.jspcore.prometheus.ratpack.PrometheusHandlerModule
 import com.jspcore.prometheus.ratpack.PrometheusModule
@@ -27,11 +28,13 @@ object Application {
             bindings
               .module(PrometheusHandlerModule::class.java)
               .module(PrometheusModule::class.java)
+              .bind(Endpoints::class.java)
           }
         )
         .handlers { chain ->
           chain.all(RequestTimingHandler::class.java)
             .get("", this::hello)
+            .prefix("api", Endpoints::class.java)
         }
     }
   }
