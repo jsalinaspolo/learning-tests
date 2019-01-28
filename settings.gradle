@@ -6,5 +6,6 @@ include 'redis',
 //  'hystrix:hystrix-wrapper',
 //  'hystrix:hystrix-wrapper-ft',
   'prometheus',
+  'kafka'
 
 rootProject.name = 'learning-tests'
