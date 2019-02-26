@@ -6,4 +6,9 @@
     mapField:
       item1: "value1"
       item2: "value2"
+
+    listField:
+      - item1
+      - item2
+      - item3
 ...

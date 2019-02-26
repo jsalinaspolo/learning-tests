@@ -16,6 +16,7 @@ class RatpackConfigShould extends Specification {
     public String field
     public String anotherField
     public Map<String, String> mapField
+    public List<String> listField
   }
 
   def "parse configuration object"() {
@@ -93,7 +94,7 @@ class RatpackConfigShould extends Specification {
     }
   }
 
-  def "parse configuration object with list"() {
+  def "parse configuration object with map"() {
     expect:
     GroovyEmbeddedApp.ratpack {
       serverConfig {
@@ -108,6 +109,24 @@ class RatpackConfigShould extends Specification {
       }
     } test {
       assert getText().contains('{"item1":"value1","item2":"value2"}')
+    }
+  }
+
+  def "parse configuration object with list"() {
+    expect:
+    GroovyEmbeddedApp.ratpack {
+      serverConfig {
+        yaml Class.getResource("/application.yaml")
+        env("")
+        require("/sample", Sample)
+      }
+      handlers {
+        get { Sample config ->
+          render json(config)
+        }
+      }
+    } test {
+      assert getText().contains('"listField":["item1","item2","item3"]')
     }
   }
 
