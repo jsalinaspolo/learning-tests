@@ -1,0 +1,10 @@
+groups:
+- name: alerting.rules
+  rules:
+  - alert: Local_Service_Down
+    expr: up{job="local-service"} == 0
+    for: 10s
+    labels:
+      severity: "high"
+    annotations:
+      summary: The local service {{ $labels.instance }} has been down for at least 10 seconds
