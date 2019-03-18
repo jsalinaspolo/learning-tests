@@ -1,0 +1,26 @@
+# Unit tests for Prometheus alerting rules
+# Run using $ ./promtool test rules test.yml
+# More information: https://prometheus.io/docs/prometheus/latest/configuration/unit_testing_rules/
+
+rule_files:
+- prometheus-rules.yml
+
+evaluation_interval: 10s
+
+tests:
+# Send an alert for each service that is down
+- interval: 10s
+  input_series:
+  - series: 'up{instance="host.docker.internal:5050",job="local-service"}'
+    values: '1 1 1 0 0 0'
+
+  alert_rule_test:
+  - eval_time: 1m
+    alertname: Local_Service_Down
+    exp_alerts:
+    - exp_labels:
+        severity: high
+        job: local-service
+        instance: host.docker.internal:5050
+      exp_annotations:
+        summary: "The local service host.docker.internal:5050 has been down for at least 10 seconds"
