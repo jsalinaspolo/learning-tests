@@ -1,6 +1,6 @@
 package com.jspcore.redis.lettuce;
 
-import com.lambdaworks.redis.RedisCommandExecutionException;
+import io.lettuce.core.RedisCommandExecutionException;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

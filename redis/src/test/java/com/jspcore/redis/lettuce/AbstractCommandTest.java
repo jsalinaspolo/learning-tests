@@ -1,20 +1,17 @@
 package com.jspcore.redis.lettuce;
 
-import com.lambdaworks.redis.RedisClient;
-import com.lambdaworks.redis.RedisURI;
-import com.lambdaworks.redis.api.StatefulRedisConnection;
-import com.lambdaworks.redis.api.sync.RedisCommands;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.ClassRule;
+import io.lettuce.core.RedisClient;
+import io.lettuce.core.RedisURI;
+import io.lettuce.core.api.StatefulRedisConnection;
+import io.lettuce.core.api.sync.RedisCommands;
+import org.junit.*;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.utility.DockerImageName;
 
 public abstract class AbstractCommandTest {
 
   @ClassRule
-  public static GenericContainer redis = new GenericContainer("redis:4.0.11")
+  public static GenericContainer redis = new GenericContainer("redis:6.0.8")
     .withExposedPorts(6379);
 
   protected static RedisClient client;

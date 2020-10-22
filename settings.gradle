@@ -1,7 +1,8 @@
-include 'redis',
+include 'kotlin',
+//  'redis',
   'ratpack',
   'micrometer',
-  'kotlin',
+
 //  'hystrix',
 //  'hystrix:hystrix-wrapper',
 //  'hystrix:hystrix-wrapper-ft',
